@@ -341,7 +341,7 @@
               id="dropdown-2">
               <div class="px-4 py-3" role="none" v-if="user">
                 <p class="text-sm text-gray-900 dark:text-white" role="none">
-                  {{ user.name }}
+                  {{ user.username }}
                 </p>
                 <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
                   {{ user.email }}
@@ -370,14 +370,10 @@
 <script setup>
 import { onMounted, computed } from "vue";
 const vite_url = import.meta.env.VITE_URL
-// import { authUser } from "@/stores/authuser.js"
-// const auser = authUser();
-// const user = computed(() => auser.user);
-// onMounted(() => {
-//   if(user){
-//     auser.getAuthuser()
-//   }
-// })
+import { Auth } from "../../stores/auth"
+const auth = Auth();
+const user = computed(() => auth.user);
+
 const logout = () => {
   // auser.authUserLogout().then((res) => {
   //   if (res.status == 200) {

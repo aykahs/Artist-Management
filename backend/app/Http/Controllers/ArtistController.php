@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Repositories\ArtistRepositoryInterface;
 use Illuminate\Http\Request;
+use App\Http\Requests\ArtistRequest;
 
 class ArtistController extends Controller
 {
@@ -15,20 +16,20 @@ class ArtistController extends Controller
         return response()->json($data,200);
     }
 
-    public function create(Request $request) {
-        
+    public function create(ArtistRequest $request) {
+        $this->artistrepo->create($request->validated());
         return response()->json([
             'message'=>"Artist successfully added"
         ],200);
     }
-    public function update(Request $request){
-       
+    public function update(ArtistRequest $request,$id){
+        $this->artistrepo->update($request->validated(),$id);
         return response()->json([
             'message'=>"Artist successfully updated"
         ],200);
     }
-    public function delete(Request $request){
-       
+    public function delete($id){
+        $this->artistrepo->delete($id);
         return response()->json([
             'message'=>"Artist successfully deleted"
         ],200);

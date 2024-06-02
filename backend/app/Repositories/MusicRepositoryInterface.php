@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-interface UserRepositoryInterface
+interface MusicRepositoryInterface
 {
     public function  getUserPagination($request);
 

@@ -43,6 +43,22 @@ const router = createRouter({
           meta: {
             requiresAuth: true
           }
+        },
+        {
+          path: 'artist',
+          name: 'artist',
+          component: () => import('../views/backend/Artist.vue'),
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'artist/:id/music',
+          name: 'artist.music',
+          component: () => import('../views/backend/Music.vue'),
+          meta: {
+            requiresAuth: true
+          }
         }
       ]
     },
@@ -50,25 +66,30 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    console.log(to, from)
     const auth = Auth();
     if (to.matched.some(record => record.meta.requiresAuth)) {
       auth.me().then((res) => {
+        next();
+
         if (res.status == 200) {
+          console.log(to)
           next();
         }
       }).catch(() => {
+        auth.destroy()
         next({
           name: 'login'
         });
       });
       
     } else {
+      auth.isLogin()
       if(auth.isAuthenticated){
         next({
           name: 'dashboard'
         });
       }else{
+        auth.destroy()
         next();
       }
     }

@@ -19,13 +19,13 @@ class UserController extends Controller
     }
 
     public function create(UserRequest $request) {
-        $this->userRepository->create($request->all());
+        $this->userRepository->create($request->validated());
         return response()->json([
             'message'=>"User successfully added"
         ],200);
     }
     public function update(UserRequest $request,$id){
-        $this->userRepository->update($request->all(),$id);
+        $this->userRepository->update($request->validated(),$id);
         return response()->json([
             'message'=>"User successfully updated"
         ],200);

@@ -26,7 +26,18 @@ export const Auth = defineStore('auth', () => {
             })
         });
     }
-    function me(){
+    function isLogin() {
+        if (myToken.getToken()) {
+            isAuthenticated.value = true;
+        }
+    }
+    function destroy() {
+        user.value = null;
+        token.value = null;
+        isAuthenticated.value = false;
+        myToken.destroyToken()
+    }
+    function me() {
         return new Promise((resolve, reject) => {
             axios.setHeader();
             axios.get('api/user').then((response) => {
@@ -42,5 +53,5 @@ export const Auth = defineStore('auth', () => {
         });
     }
 
-    return { login,user,isAuthenticated,me }
+    return { login, user, isAuthenticated, me, isLogin,destroy }
 })

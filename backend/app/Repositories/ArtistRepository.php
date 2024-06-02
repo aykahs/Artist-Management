@@ -4,6 +4,7 @@ namespace App\Repositories;
 use App\Repositories\ArtistRepositoryInterface;
 use DB;
 use App\Traits\PaginationTrait;
+use Carbon\Carbon;
 
 
 class ArtistRepository implements ArtistRepositoryInterface
@@ -12,7 +13,7 @@ class ArtistRepository implements ArtistRepositoryInterface
 
     public function getUserPagination($request)
     {
-        return $this->paginate($request,'users');
+        return $this->paginate($request,'artists',['name','first_release_year']);
     }
 
     public function create(array $data)
@@ -25,7 +26,7 @@ class ArtistRepository implements ArtistRepositoryInterface
         $address = $data['address'];
         $created_at = Carbon::now();
         DB::insert(
-            "INSERT INTO artists (name,first_release_year,no_of_album_release,dob,gender,address,created_at) VALUES (?, ?, ?, ?,?,?,?,?,?,?)",
+            "INSERT INTO artists (name,first_release_year,no_of_album_release,dob,gender,address,created_at) VALUES (?, ?, ?, ?,?,?,?)",
                 [$name,$first_release_year,$no_of_album_release,$dob,$gender,$address,$created_at]
         );
     }

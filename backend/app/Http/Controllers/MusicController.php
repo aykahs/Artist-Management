@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Repositories\MusicRepositoryInterface;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\MusicRequest;
 
 class MusicController extends Controller
 {
@@ -14,25 +15,24 @@ class MusicController extends Controller
     public function index(Request $request) {
         $data = $this->musicRepo->getUserPagination($request->all());
         return response()->json($data,200);
-
     }
 
-    public function create(Request $request) {
-       
+    public function create(MusicRequest $request) {
+        $this->musicRepo->create($request->validated());
         return response()->json([
-            'message'=>"Artist successfully added"
+            'message'=>"Music successfully added"
         ],200);
     }
-    public function update(Request $request){
-       
+    public function update(MusicRequest $request,$id){
+        $this->musicRepo->update($request->validated(),$id);
         return response()->json([
-            'message'=>"Artist successfully updated"
+            'message'=>"Music successfully updated"
         ],200);
     }
-    public function delete(Request $request){
-       
+    public function delete($id){
+        $this->musicRepo->delete($id);
         return response()->json([
-            'message'=>"Artist successfully deleted"
+            'message'=>"Music successfully deleted"
         ],200);
     }
 }

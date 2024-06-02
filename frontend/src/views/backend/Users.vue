@@ -265,6 +265,7 @@
 import { ref, onMounted, reactive, computed } from "vue";
 import Paginate from '../../components/common/pagination.vue'
 import axios from '../../axios';
+import Swal from 'sweetalert2'
 
 const users = ref([])
 const error = ref({
@@ -361,6 +362,7 @@ const submitUser = () => {
         confirmButtonText: "Yes"
     }).then((result) => {
         if (result.isConfirmed) {
+            axios.setHeader()
             axios.post('api/user-create', user.value).then((response) => {
                 if (response.status == 200) {
                     const Toast = Swal.mixin({
@@ -400,6 +402,7 @@ const updateUser = () => {
         confirmButtonText: "Yes"
     }).then((result) => {
         if (result.isConfirmed) {
+            axios.setHeader()
     axios.put('api/user-update/' + userId.value, user.value).then((response) => {
         if (response.status == 200) {
             const Toast = Swal.mixin({
@@ -438,6 +441,7 @@ const deleteUser = (id) => {
         confirmButtonText: "Yes, delete it!"
     }).then((result) => {
         if (result.isConfirmed) {
+            axios.setHeader()
             axios.delete('api/user-delete/' + id).then((response) => {
                 if (response.status == 200) {
                     const Toast = Swal.mixin({
