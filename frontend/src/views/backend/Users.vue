@@ -14,7 +14,7 @@
                                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                                         User
                                     </h3>
-                                    <button type="button"  data-modal-hide="default-modal"  @click="resetmodel(false)"
+                                    <button type="button" data-modal-hide="default-modal" @click="resetmodel(false)"
                                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
                                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                             fill="none" viewBox="0 0 14 14">
@@ -35,8 +35,8 @@
                                             placeholder="" required>
                                         <span class="mt-2 text-sm text-red-600 dark:text-red-500"
                                             v-if="error.errors.username && error.errors.username[0] != ''">{{
-                                            error.errors.username[0]
-                                        }}</span>
+                                        error.errors.username[0]
+                                    }}</span>
                                     </div>
                                     <div>
                                         <label for="name"
@@ -48,8 +48,8 @@
                                             placeholder="" required>
                                         <span class="mt-2 text-sm text-red-600 dark:text-red-500"
                                             v-if="error.errors.first_name && error.errors.first_name[0] != ''">{{
-                                            error.errors.first_name[0]
-                                        }}</span>
+                                        error.errors.first_name[0]
+                                    }}</span>
                                     </div>
                                     <div>
                                         <label for="name"
@@ -61,8 +61,8 @@
                                             placeholder="" required>
                                         <span class="mt-2 text-sm text-red-600 dark:text-red-500"
                                             v-if="error.errors.last_name && error.errors.last_name[0] != ''">{{
-                                            error.errors.last_name[0]
-                                        }}</span>
+                                        error.errors.last_name[0]
+                                    }}</span>
                                     </div>
 
                                     <div>
@@ -75,8 +75,8 @@
                                             placeholder="@company.com" required>
                                         <span class="mt-2 text-sm text-red-600 dark:text-red-500"
                                             v-if="error.errors.email && error.errors.email[0] != ''">{{
-                                            error.errors.email[0]
-                                        }}</span>
+                                        error.errors.email[0]
+                                    }}</span>
                                     </div>
                                     <div>
                                         <label for="phone"
@@ -88,8 +88,8 @@
                                             placeholder="" required>
                                         <span class="mt-2 text-sm text-red-600 dark:text-red-500"
                                             v-if="error.errors.phone && error.errors.phone[0] != ''">{{
-                                            error.errors.phone[0]
-                                        }}</span>
+                                        error.errors.phone[0]
+                                    }}</span>
                                     </div>
                                     <div>
                                         <label for="dob"
@@ -100,8 +100,8 @@
                                             placeholder="" required>
                                         <span class="mt-2 text-sm text-red-600 dark:text-red-500"
                                             v-if="error.errors.dob && error.errors.dob[0] != ''">{{
-                                            error.errors.dob[0]
-                                        }}</span>
+                                        error.errors.dob[0]
+                                    }}</span>
                                     </div>
                                     <div>
                                         <label for="name"
@@ -112,8 +112,8 @@
                                             placeholder="" required>
                                         <span class="mt-2 text-sm text-red-600 dark:text-red-500"
                                             v-if="error.errors.address && error.errors.address[0] != ''">{{
-                                            error.errors.address[0]
-                                        }}</span>
+                                        error.errors.address[0]
+                                    }}</span>
                                     </div>
                                     <div>
                                         <label for="gender"
@@ -128,8 +128,8 @@
                                         </select>
                                         <span class="mt-2 text-sm text-red-600 dark:text-red-500"
                                             v-if="error.errors.gender && error.errors.gender[0] != ''">{{
-                                            error.errors.gender[0]
-                                        }}</span>
+                                        error.errors.gender[0]
+                                    }}</span>
                                     </div>
                                     <div v-if="userId == 0">
                                         <label for="password"
@@ -141,8 +141,8 @@
                                             required>
                                         <span class="mt-2 text-sm text-red-600 dark:text-red-500"
                                             v-if="error.errors.password && error.errors.password[0] != ''">{{
-                                            error.errors.password[0]
-                                        }}</span>
+                                        error.errors.password[0]
+                                    }}</span>
                                     </div>
                                     <div v-if="userId == 0">
                                         <label for="confirm-password"
@@ -240,9 +240,11 @@
                                         {{ user.address }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        <a href="#" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                                        <a href="#"
+                                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                                             @click="edituser(user)">Edit</a>
-                                            <a href="#" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-3 ml-2 py-1 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                                        <a href="#"
+                                            class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-3 ml-2 py-1 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                                             @click="deleteUser(user.id)">Delete</a>
                                     </td>
                                 </tr>
@@ -262,7 +264,7 @@
 <script setup>
 import { ref, onMounted, reactive, computed } from "vue";
 import Paginate from '../../components/common/pagination.vue'
-import axios from "axios";
+import axios from '../../axios';
 
 const users = ref([])
 const error = ref({
@@ -349,38 +351,122 @@ const user = ref({
 })
 
 const submitUser = () => {
-    axios.post('http://127.0.0.1:8000/api/user-create', user.value).then((response) => {
-        if (response.status == 200) {
-            reset();
-            resetmodel(false)
-            getusers(users.value.currentpage,'')
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You you want to store!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            axios.post('api/user-create', user.value).then((response) => {
+                if (response.status == 200) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
+                        }
+                    });
+                    Toast.fire({
+                        icon: "success",
+                        title: "User Created successfully"
+                    });
+                    reset();
+                    resetmodel(false)
+                    getusers(users.value.currentpage, '')
+                }
+            }).catch((e) => {
+                error.value = e.response.data
+            })
         }
-    }).catch((e) => {
-        error.value = e.response.data
-    })
+    });
+
 }
 const updateUser = () => {
-    axios.put('http://127.0.0.1:8000/api/user-update/' + userId.value, user.value).then((response) => {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You you want to update!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes"
+    }).then((result) => {
+        if (result.isConfirmed) {
+    axios.put('api/user-update/' + userId.value, user.value).then((response) => {
         if (response.status == 200) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "success",
+                title: "User Updated successfully"
+            });
             reset();
             resetmodel(false)
-            getusers(users.value.currentpage,'')
+            getusers(users.value.currentpage, '')
         }
     }).catch((e) => {
         error.value = e.response.data;
     })
+}
+});
 }
 const deleteUser = (id) => {
-    axios.delete('http://127.0.0.1:8000/api/user-delete/' +id).then((response) => {
-        if (response.status == 200) {
-            getusers(users.value.currentpage,'')
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You want to delete!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            axios.delete('api/user-delete/' + id).then((response) => {
+                if (response.status == 200) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
+                        }
+                    });
+                    Toast.fire({
+                        icon: "success",
+                        title: "User Deleted successfully"
+                    });
+                    getusers(users.value.currentpage, '')
+                }
+            }).catch((e) => {
+                error.value = e.response.data;
+            })
         }
-    }).catch((e) => {
-        error.value = e.response.data;
-    })
+    });
+
 }
 const getusers = (pageno = 1, search = '') => {
-    axios.get('http://127.0.0.1:8000/api/get-users', {
+    axios.setHeader()
+    axios.get('api/get-users', {
         params: {
             page: pageno,
             search: search
@@ -441,6 +527,6 @@ const reset = () => {
 }
 
 onMounted(() => {
-    getusers();
+    getusers(1, '')
 })
 </script>

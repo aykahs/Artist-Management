@@ -4,6 +4,8 @@
             <div class="inline-block min-w-full align-middle">
                 <div class="overflow-hidden shadow">
                    Dashboard
+
+                  
                 </div>
             </div>
         </div>

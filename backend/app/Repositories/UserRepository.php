@@ -5,6 +5,7 @@ use App\Repositories\UserRepositoryInterface;
 use DB;
 use App\Traits\PaginationTrait;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -24,7 +25,7 @@ class UserRepository implements UserRepositoryInterface
         $gender = $data['gender'];
         $address = $data['address'];
         $email = $data['email'];
-        $password = $data['password'];
+        $password =  Hash::make($data['password']);
         $username = $data['username'];
         $created_at = Carbon::now();
         DB::insert(
