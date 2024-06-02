@@ -95,9 +95,11 @@
                                         <label for="dob"
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
                                             Date of birth</label>
-                                        <input @input="vreset('dob')" v-model="user.dob" type="date" name="dob" id="dob"
+                                            <VueDatePicker  @update:model-value="vreset('dob')" v-model="user.dob" :format="format"></VueDatePicker>
+
+                                        <!-- <input @input="vreset('dob')" v-model="user.dob" type="date" name="dob" id="dob"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="" required>
+                                            placeholder="" required> -->
                                         <span class="mt-2 text-sm text-red-600 dark:text-red-500"
                                             v-if="error.errors.dob && error.errors.dob[0] != ''">{{
                                         error.errors.dob[0]
@@ -176,7 +178,7 @@
                                 <button @click="resetmodel(true)"
                                     class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                     type="button">
-                                    Add
+                                    Add User
                                 </button>
 
                             </div>
@@ -266,6 +268,8 @@ import { ref, onMounted, reactive, computed } from "vue";
 import Paginate from '../../components/common/pagination.vue'
 import axios from '../../axios';
 import Swal from 'sweetalert2'
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
 const users = ref([])
 const error = ref({
@@ -307,6 +311,15 @@ const error = ref({
 const userId = ref(0);
 const vreset = (str) => {
     error.value.errors[str] = [''];
+}
+const format = (date) => {
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  month = month < 10 ? '0' + month : month;
+  day = day < 10 ? '0' + day : day;
+  const year = date.getFullYear();
+
+  return `${year}-${month}-${day}`;
 }
 const edituser = (data) => {
     reset();

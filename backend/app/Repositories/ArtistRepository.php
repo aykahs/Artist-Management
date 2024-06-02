@@ -5,6 +5,8 @@ use App\Repositories\ArtistRepositoryInterface;
 use DB;
 use App\Traits\PaginationTrait;
 use Carbon\Carbon;
+use Excel;
+use App\Exports\ArtistExport;
 
 
 class ArtistRepository implements ArtistRepositoryInterface
@@ -55,6 +57,25 @@ class ArtistRepository implements ArtistRepositoryInterface
             "Update artists set deleted_at=? where id = ?",
                 [$deleted_at,$user_id]
         );
+    }
+ 
+    public function excel()
+    {
+        $artist_data = DB::select('select name,first_release_year,	no_of_album_release,	dob,	gender,	address from artists');
+        $artist_data = collect($artist_data)->toArray();
+        $artist_array[] = array('Artist Name', 'First release year', 'No of album release', 'Address', 'Date of birth', 'Gender');
+        foreach ($artist_data as $artist) {
+            $artist_array[] = array(
+                'Artist Name'  => $artist->name,
+                'First release year'    => $artist->first_release_year,
+                'No of album release'    => $artist->no_of_album_release,
+                'Address'   => $artist->address,
+                'Date of birth'   => $artist->dob,
+                'Gender'   => $artist->gender
+            );
+        }
+        $export = new ArtistExport($artist_array);
+        return Excel::download($export, 'invoices.xlsx');
     }
 
 }
