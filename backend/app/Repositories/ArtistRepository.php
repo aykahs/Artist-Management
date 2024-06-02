@@ -77,5 +77,14 @@ class ArtistRepository implements ArtistRepositoryInterface
         $export = new ArtistExport($artist_array);
         return Excel::download($export, 'invoices.xlsx');
     }
+    public function dashboard(){
+       return  DB::select("select sum(a.ucount)ucount,sum(a.acount)acount,sum(a.mcount)mcount from(
+                select count(id) as ucount,0 as acount,0 as mcount from users where deleted_at is null
+                union all
+                select 0  as ucount,count(id) as acount,0 as mcount from artists where deleted_at is null  
+                union all
+                select 0  as ucount,0 as acount,count(id) as mcount from music where deleted_at is null) as a ");
+    }
+
 
 }

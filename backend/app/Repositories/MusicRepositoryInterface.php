@@ -10,5 +10,5 @@ interface MusicRepositoryInterface
 
     public function update(array $data, $id);
 
-    public function delete($id);
+    public function delete($id,$artist_id);
 }

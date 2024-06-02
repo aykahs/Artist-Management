@@ -27,6 +27,10 @@ class MusicRepository implements MusicRepositoryInterface
             "INSERT INTO music (title,album_name,genre,artist_id,created_at) VALUES (?, ?, ?, ?,?)",
                 [$title,$album_name,$genre,$artist_id,$created_at]
         );
+        DB::update(
+            "update artists set no_of_album_release = no_of_album_release+1 where id = ?",
+                [$artist_id]
+        );
     }
 
     public function update(array $data, $id)
@@ -42,13 +46,17 @@ class MusicRepository implements MusicRepositoryInterface
         );
     }
 
-    public function delete($id)
+    public function delete($id,$artist_id)
     {
         $user_id = $id;
         $deleted_at = Carbon::now();
         DB::update(
             "Update music set deleted_at=? where id = ?",
                 [$deleted_at,$user_id]
+        );
+        DB::update(
+            "update artists set no_of_album_release = no_of_album_release-1 where id = ?",
+                [$artist_id]
         );
     }
 

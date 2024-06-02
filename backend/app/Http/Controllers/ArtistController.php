@@ -45,7 +45,10 @@ class ArtistController extends Controller
     {
         return   $this->artistrepo->excel();
     }
-
+    public function dashboard()
+    {
+        return $this->artistrepo->dashboard();
+    }
     public function import(Request $request){
         Excel::import(new ArtistImport, $request->file);
         return response()->json([

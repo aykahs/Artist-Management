@@ -89,7 +89,7 @@
                             class="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
 
                             <div>
-                                <button @click="resetmodel(true)"
+                                <button @click="add"
                                     class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                     type="button">
                                     Add Album
@@ -265,6 +265,11 @@ const submitMusic = () => {
     });
 
 }
+const add = () => {
+    musicId.value = 0;
+reset()
+resetmodel(true)
+}
 const updateMusic = () => {
     Swal.fire({
         title: "Are you sure?",
@@ -316,7 +321,7 @@ const deletemusic = (id) => {
     }).then((result) => {
         if (result.isConfirmed) {
             axios.setHeader()
-            axios.delete('api/music-delete/' + id).then((response) => {
+            axios.delete('api/music-delete/' + id+"/"+music.value.artistid).then((response) => {
                 if (response.status == 200) {
                     const Toast = Swal.mixin({
                         toast: true,

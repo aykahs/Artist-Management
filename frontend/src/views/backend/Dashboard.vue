@@ -6,20 +6,17 @@
                     <div class="bg-white shadow-md rounded-lg p-6">
                         <h2 class="text-xl font-semibold mb-4">Dashboard</h2>
                         <div class="flex justify-between">
-                            <!-- User Count Card -->
                             <div class="bg-gray-100 rounded-lg p-4 mr-4">
                                 <p class="text-gray-700">Users</p>
-                                <p class="text-3xl font-bold">256</p>
+                                <p class="text-3xl font-bold">{{  data.ucount ?? 0}}</p>
                             </div>
-                            <!-- Art Count Card -->
                             <div class="bg-gray-100 rounded-lg p-4 mr-4">
-                                <p class="text-gray-700">Art Count</p>
-                                <p class="text-3xl font-bold">789</p>
+                                <p class="text-gray-700">Artist</p>
+                                <p class="text-3xl font-bold">{{  data.acount ??0 }}</p>
                             </div>
-                            <!-- Another Card -->
                             <div class="bg-gray-100 rounded-lg p-4">
-                                <p class="text-gray-700">Another Metric</p>
-                                <p class="text-3xl font-bold">123</p>
+                                <p class="text-gray-700">Music</p>
+                                <p class="text-3xl font-bold">{{  data.mcount ?? 0}}</p>
                             </div>
                         </div>
                     </div>
@@ -28,3 +25,29 @@
         </div>
     </div>
 </template>
+<script setup>
+    import { ref, onMounted, reactive, computed } from "vue";
+    import axios from "../../axios";
+    const data = ref({
+        ucount: 0,
+        acount:0,
+        mcount:0
+    });
+    const getdashboard= () => {
+        axios.setHeader();
+        axios
+            .get("api/dashboard")
+            .then((response) => {
+                if(response.status == 200){
+                    data.value = response.data[0];
+                }
+            })
+            .catch((error) => {
+                console.log(error.response.data.message);
+            });
+    };
+    
+    onMounted(() => {
+        getdashboard();
+    });
+</script>

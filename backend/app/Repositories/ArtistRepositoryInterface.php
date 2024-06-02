@@ -12,4 +12,5 @@ interface ArtistRepositoryInterface
 
     public function delete($id);
     public function excel();
+    public function dashboard();
 }

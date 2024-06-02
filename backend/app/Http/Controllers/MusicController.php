@@ -29,8 +29,8 @@ class MusicController extends Controller
             'message'=>"Music successfully updated"
         ],200);
     }
-    public function delete($id){
-        $this->musicRepo->delete($id);
+    public function delete($id,$artist_id){
+        $this->musicRepo->delete($id,$artist_id);
         return response()->json([
             'message'=>"Music successfully deleted"
         ],200);
