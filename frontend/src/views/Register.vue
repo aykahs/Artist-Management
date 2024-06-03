@@ -5,6 +5,7 @@
         <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
           Create a Free Account
         </h2>
+        <form  @submit.prevent="submitUser">
         <div>
           <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
           <input @input="vreset('username')" v-model="user.username" type="text" name="firstname" id="name"
@@ -118,14 +119,15 @@
             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
             required>
         </div>
-        <button type="button" @click="submitUser"
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create
+        <button type="submit"
+          class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create
           account</button>
         <div class="text-sm font-medium text-gray-500 dark:text-gray-400">
           Already have an account?
           <RouterLink to="/" class="text-primary-700 hover:underline dark:text-primary-500">Login
             here</RouterLink>
         </div>
+        </form>
       </div>
     </div>
   </section>
@@ -137,6 +139,7 @@ import Swal from 'sweetalert2'
 import { useRouter } from 'vue-router';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+const router = useRouter();
 
 const error = ref({
   "message": "",
@@ -210,7 +213,7 @@ const submitUser = () => {
     confirmButtonText: "Yes"
   }).then((result) => {
     if (result.isConfirmed) {
-      axios.post('api/user-create', user.value).then((response) => {
+      axios.post('api/register', user.value).then((response) => {
         if (response.status == 200) {
           reset();
           const Toast = Swal.mixin({
@@ -226,9 +229,8 @@ const submitUser = () => {
           });
           Toast.fire({
             icon: "success",
-            title: "Signed in successfully"
+            title: "Registered  successfully"
           });
-          const router = useRouter();
 
           router.push({ name: 'login' })
         }

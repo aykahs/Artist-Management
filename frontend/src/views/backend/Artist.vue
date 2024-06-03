@@ -296,6 +296,16 @@ resetmodel(true)
 }
     const handleFileUpload = (event) => {
         const file = event.target.files[0];
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You you want to store!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes",
+        }).then((result) => {
+            if (result.isConfirmed) {
         const formData = new FormData();
         formData.append("file", file);
         axios.setHeader();
@@ -325,6 +335,8 @@ resetmodel(true)
                     getartist(artists.value.currentpage, "");
                 }
             });
+        }
+    });
     };
     const editartist = (data) => {
         reset();
@@ -353,8 +365,7 @@ resetmodel(true)
         }
     };
     const gotoMusic = (id) => {
-        console.log("Router instance:", router);
-        console.log("Navigating to Music", id);
+
         router.push({ name: "artist.music", params: { id: id } }).catch((err) => console.log(err));
     };
     const artist = ref({
@@ -367,6 +378,7 @@ resetmodel(true)
         gender: null,
     });
     const exportArtist = () => {
+       
         axios.setHeader();
         axios
             .get("api/artist-excel", {

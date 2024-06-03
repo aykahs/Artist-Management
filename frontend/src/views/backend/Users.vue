@@ -195,7 +195,7 @@
                                 <input type="text" id="table-search-users"
                                     @change="getusers(users.currentpage, $event.target.value)"
                                     class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder=" for users">
+                                    placeholder="search users">
                             </div>
                         </div>
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
@@ -253,7 +253,7 @@
                             </tbody>
                         </table>
                         <Paginate :currentpage="users.currentpage" :perpage="users.perpage" :total="users.total"
-                            :search="''" @loadDate="getusers" />
+                            :search="search" @loadDate="getusers" />
 
                     </div>
                 </div>
@@ -309,6 +309,8 @@ const error = ref({
     }
 })
 const userId = ref(0);
+const search = ref('');
+
 const vreset = (str) => {
     error.value.errors[str] = [''];
 }
@@ -486,12 +488,13 @@ const deleteUser = (id) => {
     });
 
 }
-const getusers = (pageno = 1, search = '') => {
+const getusers = (pageno = 1, s = '') => {
+    search.value = s;
     axios.setHeader()
     axios.get('api/get-users', {
         params: {
             page: pageno,
-            search: search
+            search: s
         }
     }).then((response) => {
         users.value = response.data;

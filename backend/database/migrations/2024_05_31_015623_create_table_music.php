@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('album_name');
             $table->enum('genre',['rmb', 'country','classics','rock','jazz']);
             $table->unsignedBigInteger('artist_id');
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
             $table->foreign('artist_id')->references('id')->on('artists');
             $table->softDeletes('deleted_at');
             $table->timestamps();

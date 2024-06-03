@@ -69,10 +69,7 @@ router.beforeEach((to, from, next) => {
     const auth = Auth();
     if (to.matched.some(record => record.meta.requiresAuth)) {
       auth.me().then((res) => {
-        next();
-
         if (res.status == 200) {
-          console.log(to)
           next();
         }
       }).catch(() => {

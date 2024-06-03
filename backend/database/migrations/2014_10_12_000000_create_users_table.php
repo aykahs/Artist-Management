@@ -23,8 +23,11 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('usertype', ['admin', 'user'])->nullable();
             $table->rememberToken();
             $table->softDeletes('deleted_at');
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
             $table->timestamps();
         });
     }

@@ -6,7 +6,7 @@ use DB;
 use App\Traits\PaginationTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
-
+use Auth;
 class UserRepository implements UserRepositoryInterface
 {
     use PaginationTrait;
@@ -21,16 +21,36 @@ class UserRepository implements UserRepositoryInterface
         $first_name = $data['first_name'];
         $last_name = $data['last_name'];
         $phone = $data['phone'];
-        $dob = $data['dob'];
+        $dob =  Carbon::parse($data['dob'])->toDateTimeString();
         $gender = $data['gender'];
         $address = $data['address'];
         $email = $data['email'];
         $password =  Hash::make($data['password']);
         $username = $data['username'];
         $created_at = Carbon::now();
+        $created_by =Auth::user()->id;
+        $usertype = 'user';
         DB::insert(
-            "INSERT INTO users (first_name,last_name,phone,dob,gender,address,email,password,username,created_at) VALUES (?, ?, ?, ?,?,?,?,?,?,?)",
-                [$first_name,$last_name,$phone,$dob,$gender,$address,$email,$password,$username,$created_at]
+            "INSERT INTO users (first_name,last_name,phone,dob,gender,address,email,password,username,created_at,created_by,usertype) VALUES (?, ?, ?, ?,?,?,?,?,?,?,?,?)",
+                [$first_name,$last_name,$phone,$dob,$gender,$address,$email,$password,$username,$created_at,$created_by,$usertype]
+        );
+    }
+    public function register(array $data)
+    {
+        $first_name = $data['first_name'];
+        $last_name = $data['last_name'];
+        $phone = $data['phone'];
+        $dob =  Carbon::parse($data['dob'])->toDateTimeString();
+        $gender = $data['gender'];
+        $address = $data['address'];
+        $email = $data['email'];
+        $password =  Hash::make($data['password']);
+        $username = $data['username'];
+        $created_at = Carbon::now();
+        $usertype = 'user';
+        DB::insert(
+            "INSERT INTO users (first_name,last_name,phone,dob,gender,address,email,password,username,created_at,usertype) VALUES (?, ?, ?, ?,?,?,?,?,?,?,?)",
+                [$first_name,$last_name,$phone,$dob,$gender,$address,$email,$password,$username,$created_at,$usertype]
         );
     }
 
@@ -39,16 +59,17 @@ class UserRepository implements UserRepositoryInterface
         $first_name = $data['first_name'];
         $last_name = $data['last_name'];
         $phone = $data['phone'];
-        $dob = $data['dob'];
+        $dob =  Carbon::parse($data['dob'])->toDateTimeString();
         $gender = $data['gender'];
         $address = $data['address'];
         $email = $data['email'];
         $username = $data['username'];
         $user_id = $id;
         $update_at = Carbon::now();
+        $updated_by =Auth::user()->id;
         DB::update(
-            "Update users set first_name = ?,last_name = ?,phone = ?,dob = ?,gender = ?,address = ?,email = ?,username = ?,updated_at=? where id = ?",
-                [$first_name,$last_name,$phone,$dob,$gender,$address,$email,$username,$update_at,$user_id]
+            "Update users set first_name = ?,last_name = ?,phone = ?,dob = ?,gender = ?,address = ?,email = ?,username = ?,updated_at=?,updated_by=? where id = ?",
+                [$first_name,$last_name,$phone,$dob,$gender,$address,$email,$username,$update_at,$updated_by,$user_id]
         );
     }
 

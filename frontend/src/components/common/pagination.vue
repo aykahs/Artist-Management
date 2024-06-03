@@ -37,7 +37,8 @@ const loadDate = (pageno,search) => {
 const noofpage = computed(() => {
     let no = props.total/props.perpage;
     let round = no - props.perpage;
-    if(round> 0){
+    console.log(no,round)
+    if(Math.abs(round)> 0){
         no += 1;
     }
     return parseInt(no);

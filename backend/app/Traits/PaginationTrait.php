@@ -17,15 +17,17 @@
             $searchConditions[] = "$col LIKE $placeholder";
             $bindings["search{$index}"] = $search;
          }
+         $query .= " AND (" . implode(' OR ', $searchConditions) . ")";   
+         $q = "SELECT * FROM $table where deleted_at is null $query ";
+         $total = collect(DB::select($q,$bindings))->count();
          $bindings['perpage'] = (int)$perpage;
          $bindings['offset'] = (int)$offset;
-         $query .= " AND (" . implode(' OR ', $searchConditions) . ")";   
-         $q = "SELECT * FROM $table where deleted_at is null $query order by id desc LIMIT :perpage OFFSET :offset";
-         $data = DB::select($q, $bindings);
+         $qry = "SELECT * FROM $table where deleted_at is null $query order by id desc LIMIT :perpage OFFSET :offset";
+         $data = DB::select($qry, $bindings);
         }else{
            $data = DB::select("SELECT * FROM $table where deleted_at is null order by id desc LIMIT ? OFFSET ?", [$perpage, $offset]);
+           $total = DB::table($table)->where('deleted_at', null)->count();
         }
-        $total = DB::table($table)->where('deleted_at', null)->count();
         return [
             'data'=>$data,
             'perpage' => $perpage,

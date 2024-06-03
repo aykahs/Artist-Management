@@ -7,6 +7,7 @@ use App\Traits\PaginationTrait;
 use Carbon\Carbon;
 use Excel;
 use App\Exports\ArtistExport;
+use Auth;
 
 
 class ArtistRepository implements ArtistRepositoryInterface
@@ -23,13 +24,14 @@ class ArtistRepository implements ArtistRepositoryInterface
         $name = $data['name'];
         $first_release_year = $data['first_release_year'];
         $no_of_album_release = $data['no_of_album_release'];
-        $dob = $data['dob'];
+        $dob =  Carbon::parse($data['dob'])->toDateTimeString();
         $gender = $data['gender'];
         $address = $data['address'];
         $created_at = Carbon::now();
+        $created_by =Auth::user()->id;
         DB::insert(
-            "INSERT INTO artists (name,first_release_year,no_of_album_release,dob,gender,address,created_at) VALUES (?, ?, ?, ?,?,?,?)",
-                [$name,$first_release_year,$no_of_album_release,$dob,$gender,$address,$created_at]
+            "INSERT INTO artists (name,first_release_year,no_of_album_release,dob,gender,address,created_at,created_by) VALUES (?, ?, ?, ?,?,?,?)",
+                [$name,$first_release_year,$no_of_album_release,$dob,$gender,$address,$created_at,$created_by]
         );
     }
 
@@ -38,14 +40,15 @@ class ArtistRepository implements ArtistRepositoryInterface
         $name = $data['name'];
         $first_release_year = $data['first_release_year'];
         $no_of_album_release = $data['no_of_album_release'];
-        $dob = $data['dob'];
+        $dob = Carbon::parse($data['dob'])->toDateTimeString();
         $gender = $data['gender'];
         $address = $data['address'];
         $artist_id =$id;
         $update_at = Carbon::now();
+        $updated_by =Auth::user()->id;
         DB::update(
-            "Update artists set name = ?,first_release_year = ?,no_of_album_release = ?,dob = ?,gender = ?,address = ?,updated_at=? where id = ?",
-                [$name,$first_release_year,$no_of_album_release,$dob,$gender,$address,$update_at,$artist_id]
+            "Update artists set name = ?,first_release_year = ?,no_of_album_release = ?,dob = ?,gender = ?,address = ?,updated_at=?,updated_by=? where id = ?",
+                [$name,$first_release_year,$no_of_album_release,$dob,$gender,$address,$update_at,$updated_by,$artist_id]
         );
     }
 
@@ -61,7 +64,7 @@ class ArtistRepository implements ArtistRepositoryInterface
  
     public function excel()
     {
-        $artist_data = DB::select('select name,first_release_year,	no_of_album_release,	dob,	gender,	address from artists');
+        $artist_data = DB::select('select name,first_release_year,	no_of_album_release,	dob,	gender,	address from artists where deleted_at is null');
         $artist_data = collect($artist_data)->toArray();
         $artist_array[] = array('Artist Name', 'First release year', 'No of album release', 'Address', 'Date of birth', 'Gender');
         foreach ($artist_data as $artist) {

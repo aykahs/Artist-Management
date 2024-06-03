@@ -6,6 +6,7 @@ use App\Models\Artist;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Carbon\Carbon;
 use Log;
+use Auth;
 class ArtistImport implements ToModel
 {
     /**
@@ -25,7 +26,8 @@ class ArtistImport implements ToModel
             'dob' => $row[3],
             'gender' => $row[4],
             'address' => $row[5],
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'created_by' => Auth::user()->id
         ]);
         
     }

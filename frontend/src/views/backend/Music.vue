@@ -89,11 +89,19 @@
                             class="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
 
                             <div>
+                                <div class="flex justify-between">
+
                                 <button @click="add"
-                                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                    class="mr-5 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                     type="button">
                                     Add Album
                                 </button>
+                                <button @click.prevent="goback()"
+                                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                    type="button">
+                                    Go back
+                                </button>
+                                </div>
 
                             </div>
 
@@ -172,7 +180,12 @@ import Paginate from '../../components/common/pagination.vue'
 import axios from '../../axios';
 import Swal from 'sweetalert2'
 import { useRoute } from 'vue-router';
+import router from "@/router";
 const route = useRoute();
+
+const goback = () =>{
+    router.push({ name: "artist" }).catch((err) => console.log(err));
+}
 const musics = ref([])
 const error = ref({
     "message": "",

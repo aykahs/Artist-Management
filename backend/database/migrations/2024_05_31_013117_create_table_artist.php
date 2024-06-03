@@ -20,6 +20,8 @@ return new class extends Migration
             $table->enum('gender', ['m', 'f','o']);
             $table->string('address');
             $table->softDeletes('deleted_at');
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
             $table->timestamps();
         });
     }

@@ -24,6 +24,12 @@ class UserController extends Controller
             'message'=>"User successfully added"
         ],200);
     }
+    public function register(UserRequest $request) {
+        $this->userRepository->register($request->validated());
+        return response()->json([
+            'message'=>"User successfully added"
+        ],200);
+    }
     public function update(UserRequest $request,$id){
         $this->userRepository->update($request->validated(),$id);
         return response()->json([

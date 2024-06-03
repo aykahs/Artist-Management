@@ -355,7 +355,7 @@
 
                 </li>
                 <li>
-                  <a @click="logout"
+                  <a @click.prevent="logout"
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                     role="menuitem">Sign out</a>
                 </li>
@@ -371,16 +371,18 @@
 import { onMounted, computed } from "vue";
 const vite_url = import.meta.env.VITE_URL
 import { Auth } from "../../stores/auth"
+import { useRouter } from "vue-router";
+const router = useRouter();
+
 const auth = Auth();
 const user = computed(() => auth.user);
 
 const logout = () => {
-  // auser.authUserLogout().then((res) => {
-  //   if (res.status == 200) {
-  //     auser.resetuser()
-  //     window.location.href = "/login";
-  //   }
-  // })
+  auth.logout().then((res) => {
+    if (res.status == 200) {
+      router.push({ name: "login" }).catch((err) => console.log(err));
+    }
+  })
 
 };
 

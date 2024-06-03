@@ -26,6 +26,21 @@ export const Auth = defineStore('auth', () => {
             })
         });
     }
+    function logout() {
+        return new Promise((resolve, reject) => {
+            axios.post('api/logout').then((response) => {
+                if (response.status == 200) {
+                    user.value = null;
+                    token.value = '';
+                    isAuthenticated.value = false;
+                    myToken.destroyToken();
+                    resolve(response);
+                }
+            }).catch((e) => {
+                reject(e.response.data);
+            })
+        });
+    }
     function isLogin() {
         if (myToken.getToken()) {
             isAuthenticated.value = true;
@@ -53,5 +68,5 @@ export const Auth = defineStore('auth', () => {
         });
     }
 
-    return { login, user, isAuthenticated, me, isLogin,destroy }
+    return { login, user, isAuthenticated, me, isLogin,destroy,logout }
 })
