@@ -37,7 +37,7 @@ Route::middleware('auth:api')->group(function () {
     Route::put('api/artist-update/{id}', [ArtistController::class, 'update']);
     Route::delete('api/artist-delete/{id}', [ArtistController::class, 'delete']);
     
-    Route::get('api/get-music-list', [MusicController::class, 'index']);
+    Route::get('api/get-music-list/{artist_id}', [MusicController::class, 'index']);
     Route::post('api/music-create', [MusicController::class, 'create']);
     Route::put('api/music-update/{id}', [MusicController::class, 'update']);
     Route::delete('api/music-delete/{id}/{artist_id}', [MusicController::class, 'delete']);

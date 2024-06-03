@@ -11,9 +11,9 @@ class MusicRepository implements MusicRepositoryInterface
 {
     use PaginationTrait;
 
-    public function getUserPagination($request)
+    public function getUserPagination($request,$artist_id)
     {
-        return $this->paginate($request,'music',['title','album_name','genre']);
+        return $this->paginate($request,'music',['title','album_name','genre'],['artist_id',$artist_id]);
     }
 
     public function create(array $data)

@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 interface MusicRepositoryInterface
 {
-    public function  getUserPagination($request);
+    public function  getUserPagination($request,$artist_id);
 
     public function create(array $data);
 

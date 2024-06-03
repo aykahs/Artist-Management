@@ -13,7 +13,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function getUserPagination($request)
     {
-        return $this->paginate($request,'users',['first_name','last_name','phone']);
+        return $this->paginate($request,'users',['first_name','last_name','phone'],[]);
     }
 
     public function create(array $data)

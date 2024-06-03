@@ -12,8 +12,8 @@ class MusicController extends Controller
     public function __construct(protected MusicRepositoryInterface $musicRepo) {
         $this->musicRepo = $musicRepo;
     }
-    public function index(Request $request) {
-        $data = $this->musicRepo->getUserPagination($request->all());
+    public function index(Request $request,$artist_id) {
+        $data = $this->musicRepo->getUserPagination($request->all(),$artist_id);
         return response()->json($data,200);
     }
 

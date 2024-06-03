@@ -16,7 +16,7 @@ class ArtistRepository implements ArtistRepositoryInterface
 
     public function getUserPagination($request)
     {
-        return $this->paginate($request,'artists',['name','first_release_year']);
+        return $this->paginate($request,'artists',['name','first_release_year'],[]);
     }
 
     public function create(array $data)
@@ -30,7 +30,7 @@ class ArtistRepository implements ArtistRepositoryInterface
         $created_at = Carbon::now();
         $created_by =Auth::user()->id;
         DB::insert(
-            "INSERT INTO artists (name,first_release_year,no_of_album_release,dob,gender,address,created_at,created_by) VALUES (?, ?, ?, ?,?,?,?)",
+            "INSERT INTO artists (name,first_release_year,no_of_album_release,dob,gender,address,created_at,created_by) VALUES (?, ?, ?, ?,?,?,?,?)",
                 [$name,$first_release_year,$no_of_album_release,$dob,$gender,$address,$created_at,$created_by]
         );
     }

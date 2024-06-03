@@ -362,7 +362,7 @@ const deletemusic = (id) => {
 }
 const getmusic = (pageno = 1, search = '') => {
     axios.setHeader()
-    axios.get('api/get-music-list', {
+    axios.get('api/get-music-list/'+music.value.artistid , {
         params: {
             page: pageno,
             search: search
