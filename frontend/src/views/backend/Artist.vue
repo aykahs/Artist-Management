@@ -262,6 +262,7 @@
     import { useRouter } from "vue-router";
     import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+const search = ref('');
 
 const date = ref();
     const router = useRouter();
@@ -473,7 +474,7 @@ resetmodel(true)
                             });
                             reset();
                             resetmodel(false);
-                            getartist(artists.value.currentpage, "");
+                            getartist(artists.value.currentpage, search.value);
                         }
                     })
                     .catch((e) => {
@@ -522,13 +523,14 @@ resetmodel(true)
             }
         });
     };
-    const getartist = (pageno = 1, search = "") => {
+    const getartist = (pageno = 1, s = "") => {
+        search.value = s;
         axios.setHeader();
         axios
             .get("api/get-artist-list", {
                 params: {
                     page: pageno,
-                    search: search,
+                    search: s,
                 },
             })
             .then((response) => {

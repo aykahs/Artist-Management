@@ -442,7 +442,7 @@ const updateUser = () => {
             });
             reset();
             resetmodel(false)
-            getusers(users.value.currentpage, '')
+            getusers(users.value.currentpage, search.value)
         }
     }).catch((e) => {
         error.value = e.response.data;
