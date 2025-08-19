@@ -11,27 +11,45 @@ RUN apk update && apk add --no-cache \
     unzip \
     mysql-client \
     bash \
+    shadow \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd zip pdo pdo_mysql
 
-# Set the working directory
+# Set working directory
 WORKDIR /var/www/app
 
-# Copy the application files
-COPY . /var/www/app/
+# Add non-root user
+ARG UID=1000
+ARG GID=1000
+RUN addgroup -g ${GID} nginx \
+ && adduser -D -u ${UID} -G nginx appuser
 
-# Set permissions
-RUN mkdir -p storage bootstrap/cache \
-    && chown -R www-data:www-data /var/www/app \
-    && chmod -R 775 storage bootstrap/cache
-
-    # Ensure session storage permissions
-RUN chown -R www-data:www-data /var/www/app/storage/framework/sessions \
-&& chmod -R 775 /var/www/app/storage/framework/sessions
-# Install Composer dependencies
+# Copy Composer binary
 COPY --from=composer:2.6.5 /usr/bin/composer /usr/local/bin/composer
+
+# Copy composer files early for layer caching
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --optimize-autoloader
+
+# Install PHP dependencies (optional if you have vendor folder)
+# RUN composer install --no-scripts --no-autoloader
+
+# Copy application source
+COPY . .
+
+# Ensure writable directories exist and are owned properly
+RUN mkdir -p storage bootstrap/cache \
+ && chown -R appuser:nginx storage bootstrap/cache \
+ && chmod -R 775 storage bootstrap/cache
+RUN chown -R $(id -u):$(id -g) /var/www/app/storage /var/www/app/bootstrap/cache
+RUN chmod -R 775 /var/www/app/storage /var/www/app/bootstrap/cache
+# Set correct permissions for Laravel
+RUN chown -R appuser:nginx /var/www/app
+
+# Switch to non-root user
+USER appuser
+
+# Expose port (optional)
+EXPOSE 9000
 
 # Start PHP-FPM
 CMD ["php-fpm"]

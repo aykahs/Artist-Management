@@ -9,9 +9,10 @@ services:
       MYSQL_PASSWORD: '${DB_PASSWORD}'
       MYSQL_ROOT_HOST: "%"
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./mydb.sql:/docker-entrypoint-initdb.d/mydb.sql
     restart: always
     networks:
       - app-network
@@ -37,7 +38,7 @@ services:
     ports:
       - "8080:80"  # Nginx serves Laravel API and Vue
     volumes:
-      - ./backend:/var/www/app # Laravel API files
+      - ./backend:/var/www/app:delegated # Laravel API files
       - ./frontend/dist:/var/www/frontend # Vue.js built files
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf # Nginx config
     depends_on:
