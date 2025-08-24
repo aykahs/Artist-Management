@@ -37,10 +37,7 @@ jobs:
             # Create a folder to store builds (optional: separate branch)
             git checkout -B frontend-builds
             
-            # Copy dist/ to repo
-            # cp -r frontend/dist ./frontend-dist
-            
-            git add frontend-dist
+            git add .
             git commit -m "CI: Add latest frontend build [skip ci]"
             
             # Push using token
