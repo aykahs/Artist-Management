@@ -35,11 +35,14 @@ jobs:
             git config user.email "ci@example.com"
             
             # Create a folder to store builds (optional: separate branch)
-            git checkout -B frontend-builds
+            git checkout -B builds
+            
+            # Copy dist/ to repo
+            # cp -r frontend/dist ./frontend/frontend-dist
             
             git add .
             git commit -m "CI: Add latest frontend build [skip ci]"
             
             # Push using token
-            git push https://prajwol:${{ secrets.GITEA_TOKEN }}@localhost:3000/prajwol/artist.git frontend-builds --force
+            git push https://prajwol:${{ secrets.GITEA_TOKEN }}@localhost:3000/prajwol/artist.git builds --force
 
