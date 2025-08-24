@@ -25,6 +25,9 @@ jobs:
         run: php artisan key:generate
         working-directory: backend
 
+      - name: Setup environment
+        run: cp backend/.env.testing backend/.env
+        
       - name: Run migrations
         run: php artisan migrate --database=sqlite --force
         working-directory: backend
