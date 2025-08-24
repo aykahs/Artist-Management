@@ -27,7 +27,7 @@ jobs:
 
       - name: Setup environment
         run: cp backend/.env.testing backend/.env
-        
+
       - name: Run migrations
         run: php artisan migrate --database=sqlite --force
         working-directory: backend
@@ -36,7 +36,7 @@ jobs:
           DB_DATABASE: ":memory:"
 
       - name: Run tests
-        run: php artisan test
+        run: php artisan test --migrate-configuration
         working-directory: backend
         env:
           DB_CONNECTION: sqlite
