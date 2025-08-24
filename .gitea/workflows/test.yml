@@ -36,7 +36,7 @@ jobs:
           DB_DATABASE: ":memory:"
 
       - name: Run tests
-        run: php artisan test --migrate-configuration
+        run: vendor/bin/phpunit --migrate-configuration
         working-directory: backend
         env:
           DB_CONNECTION: sqlite
