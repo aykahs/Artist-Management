@@ -1,39 +1,48 @@
-frontend-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+name: Build/Test frontend
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 
-      - name: Install dependencies
-        run: npm ci
-        working-directory: frontend
+jobs:  
+  frontend-tests:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
 
-      - name: Run tests
-        run: npm run test
-        working-directory: frontend
+        - name: Setup Node.js
+          uses: actions/setup-node@v3
+          with:
+            node-version: '18'
 
-      - name: Build frontend
-        run: npm run build
-        working-directory: frontend
+        - name: Install dependencies
+          run: npm ci
+          working-directory: frontend
 
-      - name: Commit and push frontend build
-        run: |
-          git config user.name "CI Bot"
-          git config user.email "ci@example.com"
-          
-          # Create a folder to store builds (optional: separate branch)
-          git checkout -B frontend-builds
-          
-          # Copy dist/ to repo
-          cp -r frontend/dist ./frontend-dist
-          
-          git add frontend-dist
-          git commit -m "CI: Add latest frontend build [skip ci]"
-          
-          # Push using token
-          git push https://prajwol:${{ secrets.GITEA_TOKEN }}@localhost:3000/prajwol/artist.git frontend-builds --force
+        - name: Run tests
+          run: npm run test
+          working-directory: frontend
+
+        - name: Build frontend
+          run: npm run build
+          working-directory: frontend
+
+        - name: Commit and push frontend build
+          run: |
+            git config user.name "CI Bot"
+            git config user.email "ci@example.com"
+            
+            # Create a folder to store builds (optional: separate branch)
+            git checkout -B frontend-builds
+            
+            # Copy dist/ to repo
+            # cp -r frontend/dist ./frontend-dist
+            
+            git add frontend-dist
+            git commit -m "CI: Add latest frontend build [skip ci]"
+            
+            # Push using token
+            git push https://prajwol:${{ secrets.GITEA_TOKEN }}@localhost:3000/prajwol/artist.git frontend-builds --force
 
