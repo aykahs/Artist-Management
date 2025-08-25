@@ -45,6 +45,7 @@ jobs:
             git commit -m "CI: Add latest frontend build [skip ci]"
             
             # Push using token
-            git push http://prajwol:${{ secrets.GITEA_TOKEN }}@gitea:3000/prajwol/artist.git builds --force
+            git push http://prajwol:${{ secrets.GITEA_TOKEN }}@host.docker.internal:3000/prajwol/artist.git builds --force
+
 
 
