@@ -35,10 +35,11 @@ jobs:
             git config user.email "ci@example.com"
             
             # Create a folder to store builds (optional: separate branch)
-            git checkout -B builds
+            git checkout -b builds
             
             # Copy dist/ to repo
-            # cp -r frontend/dist ./frontend/frontend-dist
+            rm -rf frontend/frontend-build
+            cp -r frontend/dist frontend/frontend-dist
             
             git add .
             git commit -m "CI: Add latest frontend build [skip ci]"
